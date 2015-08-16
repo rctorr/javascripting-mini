@@ -2763,8 +2763,9 @@
 
 	#banner {
 		padding: 8em 0 6em 0;
-		background: #f6f6f6;
+		background-image: url(../../images/javascripting.jpg);
 		text-align: center;
+        color: black;
 	}
 
 		#banner h2 {
@@ -2830,6 +2831,10 @@
 			}
 
 		}
+
+      #trans {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
 
 /* Main */
 
