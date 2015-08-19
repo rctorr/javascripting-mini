@@ -5,6 +5,19 @@
 */    /*echo imprime*/
     error_reporting(E_ALL);
 
+    /* Accedemos a la BD */
+    $server = "localhost";
+    $user = "cuhrtcom_jamini";
+    $pass = "jsmini2015";
+    $db = "cuhrtcom_jsmini";
+    $n = 0; /* número de asistentes registrados */
+    $ntotal = 25; /* número total de asistentes */
+
+    $conn = new mysqli($server, $user, $pass, $db);
+    if($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
     if(isset($_GET['email'])) {
         $nombre = $_GET['nombre'];
         $email = $_GET['email'];
@@ -16,20 +29,6 @@
             /*direccion de correo de quien envia*/
 
         /* Hay que registrar el usuario en la BD */
-
-        /* Accedemos a la BD */
-        $server = "localhost";
-        $user = "cuhrtcom_jamini";
-        $pass = "jsmini2015";
-        $db = "cuhrtcom_jsmini";
-        $n = 0; /* número de asistentes registrados */
-        $ntotal = 25; /* número total de asistentes */
-
-        $conn = new mysqli($server, $user, $pass, $db);
-        if($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
         /* Se guardan los datos del aspirante */
         $sql = "INSERT INTO Asistente (`id`, `nombre`, `email`) values (NULL,'$nombre', '$email')";
         $irow = $conn->query($sql);
@@ -38,19 +37,6 @@
         } else {
             die('Error: ('. $conn->errno .') '. $conn->error);
         }
-
-        /* Se cuentan cuantos registros hay */
-        $sql = "SELECT count(*) from Asistente";
-        $irow = $conn->query($sql);
-        if($irow) {
-            $row = $irow->fetch_row();
-            $n = $row[0];
-        } else {
-            die('Error: ('. $conn->errno .') '. $conn->error);
-        }
-
-        $conn->close();
-
 
         /* Este email se envía para notificar que este usuario se está registrando */
         $r = mail($destino, $subject, $mensaje, $header);
@@ -75,7 +61,18 @@
         $notificacion = "";
     }
 
+    /* Se cuentan cuantos registros hay */
+    $sql = "SELECT count(*) from Asistente";
+    $irow = $conn->query($sql);
+    if($irow) {
+        $row = $irow->fetch_row();
+        $n = $row[0];
+    } else {
+        die('Error: ('. $conn->errno .') '. $conn->error);
+    }
 
+    $conn->close();
+    
 ?>
 <!DOCTYPE HTML>
 <html>
