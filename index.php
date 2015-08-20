@@ -119,14 +119,16 @@
 				<h2><i class="fa fa-pencil-square-o fa-3x"></i> Registro</h2>
 
                 <form action="index.php" method="get">
-                    <div class="row">
-                        <section class="10u 12u$(small) 12u$(xsmall)">
+                    <div class="row uniform">
+                       
+                        <section class="10u 12u$(small)">
                           <input type="text" name="nombre" required placeholder="Escribe tu nombre" required /> </br>
-                          <input type="email" name="email" required placeholder="Escribe tu correo electronico" required/>
+                          <input type="email" name="email" required placeholder="Escribe tu correo electronico" required /></br>
                         </section>
-                        <section class="2u 12u$(small) 12u$(xsmall)">
-                           <input type="submit" value="R">
+                        <section class="4u$ 6(xsmall)">
+                           <input type="submit" value="R" />
                         </section>
+                       
                     </div>
                 </form>
                 <div class="container 75%">
@@ -143,7 +145,7 @@
 		<!-- Footer -->
 			<footer id="footer">
 				<div class="container 75%">
-				    <h2>Ubicación</h2>
+				    <h2><i class="fa fa-globe fa-3x"></i> Ubicación</h2>
 					<div class="row">
                               <section class="8u 12u(small)">
                                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.6227089782365!2d-99.13679649999999!3d19.428701000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fed2364cbc05%3A0x38d842e1ea4db162!2sFundaci%C3%B3n+del+Centro+Historico+de+la+Ciudad+de+M%C3%A9xico!5e0!3m2!1ses!2smx!4v1439499563350" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
