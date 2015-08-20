@@ -13,10 +13,10 @@
     $n = 0; /* número de asistentes registrados */
     $ntotal = 25; /* número total de asistentes */
 
-    /*$conn = new mysqli($server, $user, $pass, $db);
+    $conn = new mysqli($server, $user, $pass, $db);
     if($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    }*/
+    }
 
     if(isset($_GET['email'])) {
         $nombre = $_GET['nombre'];
@@ -57,7 +57,7 @@
         }
     } else {
         $n = 0; /* número de asistentes registrados */
-        $ntotal = 25; /* número total de asistentes */
+        $ntotal = 30; /* número total de asistentes */
         $notificacion = "";
     }
 
@@ -108,7 +108,7 @@
 
 		<!-- Banner -->
 			<section id="banner">
-			    <section id="trans" class="container 75%">
+			    <section id="trans" class="container 75% 100%(small)">
                     <h2>Mini Javascripting</h2>
                     <h3>(Casa Mesones)</h3>
                     <p>Workshop open source creado con Node que corre en tu terminal. Hazlo por tu cuenta (ya que son autodirigidos) o asiste a Casa Mesones. <!--<a href="http://skel.io">Skel</a>.--></p>
@@ -128,7 +128,7 @@
                           <input type="email" name="email" required placeholder="Escribe tu correo electronico" required/>
                         </section>
                         <section class="2u 4u(small) 6u(xsmall)">
-                           <input type="submit" value="R" class="fa fa-pencil-square-o">
+                           <input type="submit" value="R" lass="button alt icon fa-check">
                         </section>
                     </div>
                 </form>
