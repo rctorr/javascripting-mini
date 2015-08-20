@@ -13,10 +13,10 @@
     $n = 0; /* número de asistentes registrados */
     $ntotal = 25; /* número total de asistentes */
 
-    $conn = new mysqli($server, $user, $pass, $db);
+    /*$conn = new mysqli($server, $user, $pass, $db);
     if($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    }
+    }*/
 
     if(isset($_GET['email'])) {
         $nombre = $_GET['nombre'];
@@ -123,12 +123,12 @@
 
                 <form action="index.php" method="get">
                     <div class="row">
-                        <section class="10u">
+                        <section class="10u 12u(small) 12u(xsmall)">
                           <input type="text" name="nombre" required placeholder="Escribe tu nombre" required /> </br>
                           <input type="email" name="email" required placeholder="Escribe tu correo electronico" required/>
                         </section>
-                        <section class="2u">
-                           <input type="submit" value="R" class="button alt icon fa-check">
+                        <section class="2u 4u(small) 6u(xsmall)">
+                           <input type="submit" value="R" class="fa fa-pencil-square-o">
                         </section>
                     </div>
                 </form>
