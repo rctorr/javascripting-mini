@@ -11,7 +11,8 @@
     $pass = "jsmini2015";
     $db = "cuhrtcom_jsmini";
     $n = 0; /* número de asistentes registrados */
-    $ntotal = 25; /* número total de asistentes */
+    $ntotal = 30; /* número total de asistentes */
+    $notificacion = "";
 
     $conn = new mysqli($server, $user, $pass, $db);
     if($conn->connect_error) {
@@ -55,10 +56,13 @@
         if($r == FALSE) { /* Tenemos error al enviar el mensaje? */
             $error = "Ha habido un problema con su registro, contacte a alguno de los organizadores o intente realizar su registro de nuevo. Gracias";
         }
+<<<<<<< HEAD
     } else {
         $n = 0; /* número de asistentes registrados */
         $ntotal = 30; /* número total de asistentes */
         $notificacion = "";
+=======
+>>>>>>> 06ca4987afea27c984e69c72513bbf07c6a0ce9e
     }
 
     /* Se cuentan cuantos registros hay */
@@ -72,7 +76,7 @@
     }
 
     $conn->close();
-    
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -108,7 +112,11 @@
 
 		<!-- Banner -->
 			<section id="banner">
+<<<<<<< HEAD
 			    <section id="trans" class="container 75% 100%(small)">
+=======
+			    <section id="trans" class="container 75% 100%(medium)">
+>>>>>>> 06ca4987afea27c984e69c72513bbf07c6a0ce9e
                     <h2>Mini Javascripting</h2>
                     <h3>(Casa Mesones)</h3>
                     <p>Workshop open source creado con Node que corre en tu terminal. Hazlo por tu cuenta (ya que son autodirigidos) o asiste a Casa Mesones. <!--<a href="http://skel.io">Skel</a>.--></p>
@@ -119,16 +127,21 @@
 
 		<!-- Main -->
 			<div id="main" class="container 75%">
-				<h2>Registro</h2>
+				<h2><i class="fa fa-pencil-square-o fa-3x"></i> Registro</h2>
 
                 <form action="index.php" method="get">
                     <div class="row">
-                        <section class="10u 12u(small) 12u(xsmall)">
+                        <section class="10u 12u$(small) 12u$(xsmall)">
                           <input type="text" name="nombre" required placeholder="Escribe tu nombre" required /> </br>
                           <input type="email" name="email" required placeholder="Escribe tu correo electronico" required/>
                         </section>
+<<<<<<< HEAD
                         <section class="2u 4u(small) 6u(xsmall)">
                            <input type="submit" value="R" lass="button alt icon fa-check">
+=======
+                        <section class="2u 12u$(small) 12u$(xsmall)">
+                           <input type="submit" value="R">
+>>>>>>> 06ca4987afea27c984e69c72513bbf07c6a0ce9e
                         </section>
                     </div>
                 </form>
