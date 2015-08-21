@@ -22,40 +22,46 @@
     if(isset($_GET['email'])) {
         $nombre = $_GET['nombre'];
         $email = $_GET['email'];
-        /*$algo define una variable*/
+
+        /* Se prepara mensaje de aviso de quienes se registran */
         $destino = "rictor@cuhrt.com, kairy159@gmail.com";
         $subject = "Registro a Javascripting-mini";
         $mensaje = $nombre . "\n". $email;
-        $header = "From: rictor@cuhrt.com";
-            /*direccion de correo de quien envia*/
+        $header = "From: rictor@cuhrt.com"; /*direccion de correo de quien envia*/
 
-        /* Hay que registrar el usuario en la BD */
-        /* Se guardan los datos del aspirante */
-        $sql = "INSERT INTO Asistente (`id`, `nombre`, `email`) values (NULL,'$nombre', '$email')";
+        /* Hay que ver si el email a registrar ya está registrado */
+        $sql = "SELECT * FROM Asistente WHERE email='$email'";
         $irow = $conn->query($sql);
-        if($irow) {
-            $notificacion = "¡Su registro se ha realizado con éxito!";
+        if($irow->num_rows > 0) {
+            /* Si el email ya está registrada, sólo damos aviso y no hacemos nada más */
+            $notificacion = "¡$nombre ya se encuentra registrado(a) para el evento, te esperamos!";
         } else {
-            die('Error: ('. $conn->errno .') '. $conn->error);
+            /* si el email no está registrada, pos se registra */
+            $sql = "INSERT INTO Asistente (`id`, `nombre`, `email`) values (NULL,'$nombre', '$email')";
+            $irow = $conn->query($sql);
+            if($irow) {
+                $notificacion = "¡Su registro se ha realizado con éxito!";
+
+                /* Este email se envía para notificar que este usuario se está registrando */
+                $r = mail($destino, $subject, $mensaje, $header);
+                /* Hay que determinar si el mensaje con mail() se envió de forma correcta */
+                if($r == FALSE) { /* Tenemos error al enviar el mensaje? */
+                    $notificacion = "Ha habido un problema con la notificación del registro, pero su registro se ha realizado de forma correcta. Envíe un mensaje a los organizadores, gracias!";
+                }
+
+                /* Este email se envía para notifcar al usuario que ya está registrando en la BD */
+                $mensajeu = "Hola ".$nombre."\n\nTu registro se a realizado con éxito al taller de Javascripting-mini que se llevará a cabo el día lunes 24 de agosto del 2015 de 10:00 a 14:00 hrs.\n\n Para más información visita el sitio web http://javascripting-mini.cuhrt.com o escribe a:\n rictor@cuhrt.com, kairy159@gmail.com o tallerescomunitarios@fch.org.mx\n\nEsperamos contar con tu asistencia.\n\nAtte: Javascripting-mini";
+
+                mail($email, $subject , $mensajeu, $header);
+                /* Hay que determinar si el mensaje con mail() se envió de forma correcta */
+                if($r == FALSE) { /* Tenemos error al enviar el mensaje? */
+                    $notificacion = "Ha habido un problema con la notificación del registro, pero su registro se ha realizado de forma correcta. Envíe un mensaje a los organizadores, gracias!";
+                }
+            } else {
+                $notificacion = "¡Hay un problema con sus registro, intente de nuevo o notifique a los organizadores. Gracias!";
+            }
         }
 
-        /* Este email se envía para notificar que este usuario se está registrando */
-        $r = mail($destino, $subject, $mensaje, $header);
-        /* Hay que determinar si el mensaje con mail() se envió de forma correcta */
-        if($r == FALSE) { /* Tenemos error al enviar el mensaje? */
-            $notificacion = "Ha habido un problema con su registro, contacte a alguno de los organizadores o intente realizar su registro de nuevo. Gracias";
-        }
-
-
-        $mensajeu = "Hola ".$nombre."\n\nTu registro se a realizado con éxito al taller de Javascripting-mini que se llevará a cabo el día lunes 24 de agosto del 2015 de 10:00 a 14:00 hrs.\n\n Para más información visita el sitio web http://javascripting-mini.cuhrt.com o escribe a:\n rictor@cuhrt.com, kairy159@gmail.com o tallerescomunitarios@fch.org.mx\n\nEsperamos contar con tu asistencia.\n\nAtte: Javascripting-mini";
-        /* Este email se envía para notifcar al usuario que ya está registrando, así
-        que a estas alturas ya debería de estar en la BD */
-
-        mail($email, $subject , $mensajeu, $header);
-        /* Hay que determinar si el mensaje con mail() se envió de forma correcta */
-        if($r == FALSE) { /* Tenemos error al enviar el mensaje? */
-            $error = "Ha habido un problema con su registro, contacte a alguno de los organizadores o intente realizar su registro de nuevo. Gracias";
-        }
     }
 
     /* Se cuentan cuantos registros hay */
@@ -64,10 +70,7 @@
     if($irow) {
         $row = $irow->fetch_row();
         $n = $row[0];
-    } else {
-        die('Error: ('. $conn->errno .') '. $conn->error);
     }
-
     $conn->close();
 
 ?>
@@ -120,7 +123,7 @@
 
                 <form action="index.php" method="get">
                     <div class="row uniform">
-                       
+
                         <section class="10u 12u$(small)">
                           <input type="text" name="nombre" required placeholder="Escribe tu nombre" required /> </br>
                           <input type="email" name="email" required placeholder="Escribe tu correo electronico" required /></br>
@@ -128,7 +131,7 @@
                         <section class="4u$ 6(xsmall)">
                            <input type="submit" value="R" />
                         </section>
-                       
+
                     </div>
                 </form>
                 <div class="container 75%">
